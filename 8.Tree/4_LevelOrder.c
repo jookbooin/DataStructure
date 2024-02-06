@@ -34,19 +34,25 @@ void error(char *message) {
     exit(1);
 }
 
-void init_queue(QueueType *q) { q->front = q->rear = 0; }
+void init_queue(QueueType *q) {
+    q->front = q->rear = 0;
+}
 
-int is_Empty(QueueType *q) { return q->front == q->rear; }
+int is_Empty(QueueType *q) {
+    return q->front == q->rear;
+}
 
 // 원형 큐 포화 (rear + 1 ) <-> front 위치 동일
-int is_full(QueueType *q) { return ((q->rear + 1) % MAX_QUEUE_SIZE == q->front); }
+int is_full(QueueType *q) {
+    return ((q->rear + 1) % MAX_QUEUE_SIZE == q->front);
+}
 
-
-/** 
+/**
  * 초기 idx = 0 일때는 비어있음
  * enqueue idx = 1 칸에 추가
  * dequeue idx = 1 칸에서 제거
-*/
+ */
+
 void enqueue(QueueType *q, element item) {
     if (is_full(q)) {
         error("가득 찼습니다.");
@@ -65,10 +71,12 @@ element dequeue(QueueType *q) {
 
 void level_Order(TreeNode *pt) {
     QueueType q;
-    init_queue(&q);
+    init_queue(&q);             // q->rear = q->front = 0;
+
     if (pt == NULL) return;
 
     enqueue(&q, pt);
+    
     while (!is_Empty(&q)) {
         pt = dequeue(&q);
         printf("[%d] ", pt->data);
@@ -76,6 +84,7 @@ void level_Order(TreeNode *pt) {
         if (pt->right) enqueue(&q, pt->right);
     }
 }
+
 
 int main(void) {
     level_Order(root);
