@@ -48,6 +48,7 @@ TreeNode* min_value_node(TreeNode* node) {
     while (current->left != NULL) {
         current = current->left;
     }
+
     return current;
 }
 
@@ -79,15 +80,19 @@ TreeNode* delete_node(TreeNode* root, int key) {
             return temp;
         }
 
+
+        // ( 선택 )
         // root 기준 오른쪽에서 가장 작은값
         // root 기준 왼쪽에서 가장 큰값
-        TreeNode* temp = min_value_node(root->right);  
+        TreeNode* temp = min_value_node(root->right);   // root 쪽 대체할 목적
 
         root->key = temp->key; // 특정 key를 root쪽으로 복사하고
 
         // 오른쪽에서 복사된 값을 가지고 있는 원본을 삭제한다.
         root->right = delete_node(root->right, temp->key);
+
     }
+    
     return root;
 }
 
